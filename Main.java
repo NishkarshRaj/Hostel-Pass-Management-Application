@@ -338,7 +338,7 @@ System.out.print("Enter the name of the Guard: ");
 name = r2.nextLine();
 System.out.print("Enter the Guard ID of the Guard: ");
 guardID = r2.nextInt();
-System.out.print("Enter the contact number of the student: ");
+System.out.print("Enter the contact number of the Guard: ");
 contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
 password = "Nishkarsh@123";
 }
@@ -428,6 +428,48 @@ System.exit(0);
 }
 
 
+class CreateGuard extends Guard
+{
+public void createguard()
+{
+Clear c = new Clear();
+c.cls();
+int ch;
+Scanner reader1 = new Scanner(System.in);
+System.out.println("Create a new Guard Account!!!");
+Guard g1 = new Guard();
+g1.SetGuard();
+c.cls();
+g1.show();
+System.out.println("\n\n\n");
+System.out.println("Enter 1: Confirm Details and Create Guard!"); //Send to the Database!!! and then directly login!!!
+System.out.println("Enter 2: Discard and redirect to Create Guard Page: ");
+System.out.println("Enter 3: Exit the application: ");
+System.out.print("Enter your choice: ");
+ch = reader1.nextInt();
+switch(ch)
+{
+case 1:
+c.cls();
+System.out.println("Add details to the Database!!! To be done");
+System.out.println("Redirecting to the Login Page");
+g1.loginpage();
+break;
+case 2: 
+c.cls();
+createguard();
+break;
+case 3:
+System.exit(0);
+break;
+default: 
+c.cls();
+System.out.println("Wrong Choice Entered! Exiting Application");
+System.exit(0);
+}
+}
+}
+
 class Login
 {
 public static void OptionMenu()
@@ -501,6 +543,8 @@ CreateWarden cw = new CreateWarden();
 cw.createwarden();
 break;
 case 3: System.out.println("Guard Account");
+CreateGuard cg = new CreateGuard();
+cg.createguard();
 break;
 case 4:
 c5.cls();
