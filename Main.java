@@ -117,6 +117,113 @@ System.exit(0);
 }
 
 
+
+
+class Warden
+{
+String name;
+long contactnumber;
+String email;
+String password;
+public void SetWarden()
+{
+try
+{
+Scanner r2 = new Scanner(System.in);
+System.out.print("Enter the name of the Warden: ");
+name = r2.nextLine();
+System.out.print("Enter the Email ID of the student: ");
+email = r2.nextLine();
+System.out.print("Enter the contact number of the student: ");
+contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
+password = "Nishkarsh@123";
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+}
+}
+public void show()
+{
+System.out.println("Warden Details are following: ");
+System.out.println("Name: " + name);
+System.out.println("Contact: " + contactnumber);
+System.out.println("Email ID: " + email);
+}
+public void loginpage()
+{
+Clear cl = new Clear();
+Scanner reader = new Scanner(System.in);
+//String defaultpass = "Nishkarsh@123"; //until DB connected
+String n,p,adminpass; //create check for username and password
+//adminpass = "Nishkarsh@123" //Extra security for admin interface
+int elsech;
+System.out.println("Warden Login Page!!");
+System.out.print("Enter Username: ");
+n = reader.nextLine();
+System.out.print("Enter Password: ");
+p = reader.nextLine();
+System.out.print("Enter the Administrator Password: ");
+adminpass = reader.nextLine();
+if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
+{
+if(adminpass.equals("Nishkarsh@123"))
+{
+System.out.println("Access Granted!!!");
+}
+else
+{
+System.out.println("Wrong Admin Password");
+System.out.println("Enter 1 to redirect to login page!");
+System.out.println("Enter 2 to exit the application!!");
+System.out.print("Enter your choice: ");
+elsech = reader.nextInt();
+if(elsech == 1)
+{
+cl.cls();
+loginpage();
+}
+else if(elsech == 2)
+{
+cl.cls();
+System.exit(0);
+}
+else
+{
+cl.cls();
+System.out.println("Wrong Choice Entered!!! Exiting the application!");
+System.exit(0);
+}
+}
+}
+else
+{
+System.out.println("Invalid Password!");
+System.out.println("Enter 1 to redirect to login page!");
+System.out.println("Enter 2 to exit the application!!");
+System.out.print("Enter your choice: ");
+elsech = reader.nextInt();
+if(elsech == 1)
+{
+cl.cls();
+loginpage();
+}
+else if(elsech == 2)
+{
+cl.cls();
+System.exit(0);
+}
+else
+{
+cl.cls();
+System.out.println("Wrong Choice Entered!!! Exiting the application!");
+System.exit(0);
+}
+}
+}
+}
+
+
 class Login
 {
 public static void OptionMenu()
@@ -141,7 +248,8 @@ stu.loginpage();
 break;
 case 2:
 c.cls();
-System.out.println("Warden Login");
+Warden w = new Warden();
+w.loginpage();
 break;
 case 3:
 c.cls();

@@ -7,10 +7,6 @@ Scanner reader = new Scanner(System.in);
 //String defaultpass = "Nishkarsh@123"; //until DB connected
 String n,p; //create check for username and password
 int elsech;
-
-
-
-
 System.out.println("Student Login Page!!");
 System.out.print("Enter Username: ");
 n = reader.nextLine();
@@ -40,12 +36,6 @@ else
 System.out.println("Wrong Choice Entered!!! Exiting the application!");
 }
 }
-
-
-
-
-
-
 }
 }
 
