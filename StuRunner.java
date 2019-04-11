@@ -3,6 +3,7 @@ import java.util.InputMismatchException;
 class Student
 {
 String name;
+String Course;
 int sapid;
 String regnum;
 long contactnumber;
@@ -14,6 +15,8 @@ try
 Scanner r2 = new Scanner(System.in);
 System.out.print("Enter the name of the Student: ");
 name = r2.nextLine();
+System.out.print("Enter the Course name: ");
+Course = r2.nextLine();
 System.out.print("Enter the Registration Number of the Student: ");
 regnum = r2.nextLine();
 System.out.print("Enter the Email ID of the student: ");
@@ -33,6 +36,7 @@ public void show()
 System.out.println("Student Details are following: ");
 System.out.println("Name: " + name);
 System.out.println("SAP ID: " + sapid);
+System.out.println("Course: " + Course);
 System.out.println("Registration Number: " + regnum);
 System.out.println("Contact: " + contactnumber);
 System.out.println("Email ID: " + email);
