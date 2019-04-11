@@ -39,6 +39,7 @@ class Student
 String name;
 int sapid;
 String Course;
+String Room;
 String regnum;
 long contactnumber;
 String email;
@@ -50,6 +51,8 @@ try
 Scanner r2 = new Scanner(System.in);
 System.out.print("Enter the name of the Student: ");
 name = r2.nextLine();
+System.out.print("Enter your Room Number: ");
+Room = r2.nextLine();
 System.out.print("Enter the Course name: ");
 Course = r2.nextLine();
 System.out.print("Enter the Registration Number of the Student: ");
@@ -72,6 +75,7 @@ public void show()
 System.out.println("Student Details are following: ");
 System.out.println("Name: " + name);
 System.out.println("Course: " + Course);
+System.out.println("Room Number: " + Room);
 System.out.println("SAP ID: " + sapid);
 System.out.println("Registration Number: " + regnum);
 System.out.println("Contact: " + contactnumber);
