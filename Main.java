@@ -132,9 +132,9 @@ try
 Scanner r2 = new Scanner(System.in);
 System.out.print("Enter the name of the Warden: ");
 name = r2.nextLine();
-System.out.print("Enter the Email ID of the student: ");
+System.out.print("Enter the Email ID of the Warden: ");
 email = r2.nextLine();
-System.out.print("Enter the contact number of the student: ");
+System.out.print("Enter the contact number of the Warden: ");
 contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
 password = "Nishkarsh@123";
 }
@@ -224,6 +224,112 @@ System.exit(0);
 }
 
 
+
+class Guard
+{
+String name;
+long contactnumber;
+int guardID;
+String password;
+public void SetGuard()
+{
+try
+{
+Scanner r2 = new Scanner(System.in);
+System.out.print("Enter the name of the Guard: ");
+name = r2.nextLine();
+System.out.print("Enter the Guard ID of the Guard: ");
+guardID = r2.nextInt();
+System.out.print("Enter the contact number of the student: ");
+contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
+password = "Nishkarsh@123";
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+}
+}
+public void show()
+{
+System.out.println("Guard Details are following: ");
+System.out.println("Name: " + name);
+System.out.println("Contact: " + contactnumber);
+System.out.println("GuardID: " + guardID);
+}
+public void loginpage()
+{
+Clear cl = new Clear();
+Scanner reader = new Scanner(System.in);
+//String defaultpass = "Nishkarsh@123"; //until DB connected
+String n,p,adminpass; //create check for username and password
+//adminpass = "12345678" //Extra security for admin interface but easy because guard may not remember difficult password
+int elsech;
+System.out.println("Guard Login Page!!");
+System.out.print("Enter Username: ");
+n = reader.nextLine();
+System.out.print("Enter Password: ");
+p = reader.nextLine();
+System.out.print("Enter the Administrator Password: ");
+adminpass = reader.nextLine();
+if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
+{
+if(adminpass.equals("12345678"))
+{
+System.out.println("Access Granted!!!");
+}
+else
+{
+System.out.println("Wrong Admin Password");
+System.out.println("Enter 1 to redirect to login page!");
+System.out.println("Enter 2 to exit the application!!");
+System.out.print("Enter your choice: ");
+elsech = reader.nextInt();
+if(elsech == 1)
+{
+cl.cls();
+loginpage();
+}
+else if(elsech == 2)
+{
+cl.cls();
+System.exit(0);
+}
+else
+{
+cl.cls();
+System.out.println("Wrong Choice Entered!!! Exiting the application!");
+System.exit(0);
+}
+}
+}
+else
+{
+System.out.println("Invalid Password!");
+System.out.println("Enter 1 to redirect to login page!");
+System.out.println("Enter 2 to exit the application!!");
+System.out.print("Enter your choice: ");
+elsech = reader.nextInt();
+if(elsech == 1)
+{
+cl.cls();
+loginpage();
+}
+else if(elsech == 2)
+{
+cl.cls();
+System.exit(0);
+}
+else
+{
+cl.cls();
+System.out.println("Wrong Choice Entered!!! Exiting the application!");
+System.exit(0);
+}
+}
+}
+}
+
+
 class Login
 {
 public static void OptionMenu()
@@ -253,7 +359,8 @@ w.loginpage();
 break;
 case 3:
 c.cls();
-System.out.println("Guard Login");
+Guard g = new Guard();
+g.loginpage();
 break;
 default: System.out.println("Wrong Choice Entered!!! Sending to the Login Menu again");
 c.cls();
