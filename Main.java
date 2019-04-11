@@ -129,6 +129,49 @@ System.exit(0);
 }
 
 
+class CreateStudent extends Student
+{
+public void createstu()
+{
+Clear c = new Clear();
+c.cls();
+int ch;
+Scanner reader1 = new Scanner(System.in);
+System.out.println("Create a new Student Account!!!");
+Student s1 = new Student();
+s1.SetStudent();
+c.cls();
+s1.show();
+System.out.println("\n\n\n");
+System.out.println("Enter 1: Confirm Details and Create Student!"); //Send to the Database!!! and then directly login!!!
+System.out.println("Enter 2: Discard and redirect to Create Student Page: ");
+System.out.println("Enter 3: Exit the application: ");
+System.out.print("Enter your choice: ");
+ch = reader1.nextInt();
+switch(ch)
+{
+case 1:
+c.cls();
+System.out.println("Add details to the Database!!! To be done");
+System.out.println("Redirecting to the Login Page");
+s1.loginpage();
+break;
+case 2: 
+c.cls();
+createstu();
+break;
+case 3:
+System.exit(0);
+break;
+default: 
+c.cls();
+System.out.println("Wrong Choice Entered! Exiting Application");
+System.exit(0);
+}
+}
+}
+
+
 
 
 class Warden
@@ -387,6 +430,51 @@ System.out.println(e);
 }
 
 
+class Create
+{
+public void createaccounts()
+{
+try
+{
+Clear c5 = new Clear();
+c5.cls();
+Scanner red5 = new Scanner(System.in);
+int ch5;
+System.out.println("Create Account Page\n\n");
+System.out.println("1) Create Student Account");
+System.out.println("2) Create Warden Account");
+System.out.println("3) Create Guard Account");
+System.out.println("4) Exit Application");
+System.out.print("Enter your choice: ");
+ch5 = red5.nextInt();
+switch(ch5)
+{
+case 1: System.out.println("Student Account");
+CreateStudent cc = new CreateStudent();
+cc.createstu();
+break;
+case 2: System.out.println("Warden Account");
+break;
+case 3: System.out.println("Guard Account");
+break;
+case 4:
+c5.cls();
+System.exit(0);
+default: 
+c5.cls();
+System.out.println("Wrong Choice!! Redirecting to the Create Account Page");
+createaccounts();
+}
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+
+
 class Main 
 {
 public static void homepage()
@@ -409,7 +497,8 @@ Login l = new Login();
 Login.OptionMenu();
 break;
 case 2:
-System.out.println("Create Account for Student, Warden, Guard using DataBase connectivity!!!");
+Create c7 = new Create();
+c7.createaccounts();
 break;
 case 3:
 System.out.println("Thanks for Using this Application");
