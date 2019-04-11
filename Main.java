@@ -279,6 +279,49 @@ System.exit(0);
 }
 
 
+class CreateWarden extends Warden
+{
+public void createwarden()
+{
+Clear c = new Clear();
+c.cls();
+int ch;
+Scanner reader1 = new Scanner(System.in);
+System.out.println("Create a new Warden Account!!!");
+Warden w1 = new Warden();
+w1.SetWarden();
+c.cls();
+w1.show();
+System.out.println("\n\n\n");
+System.out.println("Enter 1: Confirm Details and Create Wardne!"); //Send to the Database!!! and then directly login!!!
+System.out.println("Enter 2: Discard and redirect to Create Warden Page: ");
+System.out.println("Enter 3: Exit the application: ");
+System.out.print("Enter your choice: ");
+ch = reader1.nextInt();
+switch(ch)
+{
+case 1:
+c.cls();
+System.out.println("Add details to the Database!!! To be done");
+System.out.println("Redirecting to the Login Page");
+w1.loginpage();
+break;
+case 2: 
+c.cls();
+createwarden();
+break;
+case 3:
+System.exit(0);
+break;
+default: 
+c.cls();
+System.out.println("Wrong Choice Entered! Exiting Application");
+System.exit(0);
+}
+}
+}
+
+
 
 class Guard
 {
@@ -450,10 +493,12 @@ ch5 = red5.nextInt();
 switch(ch5)
 {
 case 1: System.out.println("Student Account");
-CreateStudent cc = new CreateStudent();
-cc.createstu();
+CreateStudent cs = new CreateStudent();
+cs.createstu();
 break;
 case 2: System.out.println("Warden Account");
+CreateWarden cw = new CreateWarden();
+cw.createwarden();
 break;
 case 3: System.out.println("Guard Account");
 break;
