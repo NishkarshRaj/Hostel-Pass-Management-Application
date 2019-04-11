@@ -42,6 +42,7 @@ String Course;
 String Room;
 String regnum;
 long contactnumber;
+long guardiancontact;
 String email;
 String password;
 public void SetStudent()
@@ -61,6 +62,8 @@ System.out.print("Enter the Email ID of the student: ");
 email = r2.nextLine();
 System.out.print("Enter SAP ID of the Student: ");
 sapid = r2.nextInt();
+System.out.print("Enter the contact number of the guardian: ");
+guardiancontact = r2.nextLong();
 System.out.print("Enter the contact number of the student: ");
 contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
 password = "Nishkarsh@123";
@@ -79,6 +82,7 @@ System.out.println("Room Number: " + Room);
 System.out.println("SAP ID: " + sapid);
 System.out.println("Registration Number: " + regnum);
 System.out.println("Contact: " + contactnumber);
+System.out.println("Guardian Contact number: " + guardiancontact);
 System.out.println("Email ID: " + email);
 }
 public void loginpage()
