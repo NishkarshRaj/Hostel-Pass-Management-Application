@@ -66,8 +66,8 @@ public void createpass(String name1,String room1,String course1,long contact1, l
 try
 {
 int ch;
-//Clear c = new Clear();
-//c.cls();
+Clear c = new Clear();
+c.cls();
 System.out.println("Create Out Pass Module\n\n");
 Scanner reader = new Scanner(System.in);
 name = name1;
@@ -95,11 +95,11 @@ NotifyWarden();
 //m.homepage();
 break;
 case 2: 
-//c.cls();
+c.cls();
 createpass(name1,room1,course1,contact1,contactp1);
 break;
 default: 
-//c.cls();
+c.cls();
 System.out.println("Wrong Choice Entered!!! Redirected to the Create Pass Menu\n\n");
 createpass(name1,room1,course1,contact1,contactp1);
 }
@@ -111,8 +111,8 @@ System.out.println(e);
 }
 public void show() //called by createpass()
 {
-//Clear c1 = new Clear();
-//c1.cls();
+Clear c1 = new Clear();
+c1.cls();
 System.out.println("Verify your details for the current OutPass\n");
 System.out.println("Name: " + name);
 System.out.println("Room Number: " + room);
@@ -174,6 +174,66 @@ System.out.println("The Intime has been specified!!!");
 }
 }
 
+
+class IFStu
+{
+	public void menu()
+	{
+	try
+	{
+		int choice123;
+		Scanner reader123 = new Scanner(System.in);
+		Clear c1 = new Clear();
+		c1.cls();
+		System.out.println("1) Check Your Details");
+		System.out.println("2) Check Attendance");
+		System.out.println("3) Create Outpass");
+		System.out.println("4) Logout");
+		System.out.print("Enter your choice: ");
+		choice123 = reader123.nextInt();
+		switch(choice123)
+		{
+		case 1: c1.cls();
+ checkdetails();
+		break;
+		case 2:c1.cls();
+ attendance();
+		break;
+		case 3: c1.cls();
+ createout();
+		break;
+		case 4: c1.cls();
+ logout();
+		break;
+		default: c1.cls();
+		System.out.println("Invalid Options Entered!!! Redirected to Main Menu");
+		menu();
+		}
+	}
+	catch(InputMismatchException e)
+	{
+	System.out.println(e);
+	menu();
+	}
+	}
+public void checkdetails()
+{
+System.out.println("Checking Details from Database");
+}
+public void attendance()
+{
+System.out.println("Checking Attendance from Database");
+}
+public void createout()
+{
+OutPass obj = new OutPass();
+obj.createpass("","","",123l,123l); //sending default parameters until DB connected
+}
+public void logout()
+{
+System.exit(0);
+}
+}
 
 
 
@@ -242,7 +302,9 @@ System.out.print("Enter Password: ");
 p = reader.nextLine();
 if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
 {
-System.out.println("Access Granted!!");
+cl.cls();
+IFStu obj12 = new IFStu();
+obj12.menu();
 }
 else
 {
@@ -619,6 +681,7 @@ public static void OptionMenu()
 {
 Scanner reader = new Scanner(System.in);
 Clear c = new Clear();
+c.cls();
 int ch;
 System.out.println("Login Page");
 System.out.println("1) Student Login");
@@ -653,6 +716,7 @@ OptionMenu();
 catch(InputMismatchException e)
 {
 System.out.println(e);
+OptionMenu();
 }
 }
 }
