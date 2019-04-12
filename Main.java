@@ -931,7 +931,7 @@ homepage();
 }
 
 
-public static void main(String args[])
+public static void mainfunction()
 {
 //Declarations
 Scanner reader = new Scanner(System.in);
@@ -952,10 +952,17 @@ homepage();
 catch(StringIndexOutOfBoundsException e)
 {
 System.out.println(e);
+mainfunction();
 }
 catch(Exception e)
 {
 System.out.println(e);
+mainfunction();
 }
+}
+
+public static void main(String args[])
+{
+mainfunction();
 }
 }
