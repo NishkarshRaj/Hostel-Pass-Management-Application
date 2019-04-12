@@ -161,6 +161,7 @@ System.out.println("Permission Denied");
 public void verification_out() //used by guard
 {
 Scanner rout = new Scanner(System.in);
+System.out.print("Enter the Out time: ");
 Outtime = rout.nextLine();
 System.out.println("The Out Time has been specified!!!");
 //Submit to the the Database;
@@ -168,6 +169,7 @@ System.out.println("The Out Time has been specified!!!");
 public void verification_in() //used by guard
 {
 Scanner rin = new Scanner(System.in);
+System.out.print("Enter the In time: ");
 Intime = rin.nextLine();
 System.out.println("The Intime has been specified!!!");
 //Submit to the the Database;
@@ -588,6 +590,59 @@ System.exit(0);
 }
 
 
+class IFGuard
+{
+OutPass obj = new OutPass();
+Clear c = new Clear();
+int ch;
+Scanner reader = new Scanner(System.in);
+public void menu()
+{
+c.cls();
+System.out.println("1) Put Out Time in DB");
+System.out.println("2) Put In Time in DB");
+System.out.println("3) Logout");
+System.out.print("Enter your choice: ");
+ch = reader.nextInt();
+switch(ch)
+{
+case 1: 
+outdb();
+menu();
+break;
+case 2:
+indb();
+menu();
+break;
+case 3:
+logout();
+break;
+default: c.cls();
+System.out.println("Wrong Choice Entered!!!");
+menu();
+}
+}
+public void outdb()
+{
+c.cls();
+obj.verification_out();
+menu();
+}
+public void indb()
+{
+c.cls();
+obj.verification_in();
+menu();
+}
+public void logout()
+{
+c.cls();
+logout();
+}
+}
+
+
+
 
 class Guard
 {
@@ -639,7 +694,8 @@ if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == 
 {
 if(adminpass.equals("12345678"))
 {
-System.out.println("Access Granted!!!");
+IFGuard obj = new IFGuard();
+obj.menu();
 }
 else
 {
@@ -826,6 +882,7 @@ createaccounts();
 catch(Exception e)
 {
 System.out.println(e);
+createaccounts();
 }
 }
 }
@@ -835,6 +892,8 @@ System.out.println(e);
 class Main 
 {
 public static void homepage()
+{
+try
 {
 Clear c1 = new Clear();
 int choiceoption1;
@@ -862,6 +921,12 @@ System.out.println("Thanks for Using this Application");
 System.exit(0);
 break;
 default: System.out.println("Invalid option!!! Redirecting to the HomePage"); homepage();
+}
+}
+catch(Exception e)
+{
+System.out.println(e);
+homepage();
 }
 }
 
