@@ -377,6 +377,66 @@ System.exit(0);
 }
 
 
+class IFWarden
+{
+Clear c41 = new Clear();
+Scanner reader = new Scanner(System.in);
+int ch;
+public void menu()
+{
+try
+{
+c41.cls();
+System.out.println("Warden Home Page\n\n");
+System.out.println("1) Check for new OutPass Requests");
+System.out.println("2) Check Student Attendance");
+System.out.println("3) Logout");
+System.out.print("Enter your choice: ");
+ch = reader.nextInt();
+switch(ch)
+{
+case 1:
+c41.cls();
+permissions();
+break;
+case 2:
+c41.cls();
+attendance();
+break;
+case 3:
+c41.cls();
+logout();
+break;
+default: 
+c41.cls();
+System.out.println("Wrong Choice Entered!! Redirected to the main menu!!!");
+menu();
+}
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+}
+}
+public void permissions()
+{
+c41.cls();
+OutPass obj = new OutPass();
+obj.permission();
+menu();
+}
+public void attendance()
+{
+c41.cls();
+System.out.println("Checking the attendance from DB");
+menu();
+}
+public void logout()
+{
+c41.cls();
+System.exit(0);
+}
+}
 
 
 class Warden
@@ -429,7 +489,8 @@ if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == 
 {
 if(adminpass.equals("Nishkarsh@123"))
 {
-System.out.println("Access Granted!!!");
+IFWarden obj = new IFWarden();
+obj.menu();
 }
 else
 {
