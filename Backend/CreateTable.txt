@@ -19,7 +19,7 @@ courseid varchar(8)
 create table student
 (
 name varchar(25) not null,
-sapid varchar(9) check (sapid = '5000%'),
+sapid varchar(9),
 password varchar(12),
 regnum varchar(12) not null,
 course varchar(15),
@@ -53,7 +53,7 @@ primary key(guardid,password)
 
 create table outpass
 (
-sapid varchar(9) check (sapid = '5000%'),
+sapid varchar(9),
 name varchar(25) not null,
 course varchar(15),
 contact number(10),

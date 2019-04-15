@@ -1,0 +1,33 @@
+insert into courses values ('','');
+insert into student values ('name','sap','pass','regnum','course',c1,c2,'email','room');
+insert into warden values ('name',c,'email','password');
+insert into guard ('name',contact,'gid','pass');
+insert into outpass('sapid','name','course',contact,contac1,'room','ldate','rdate','perm','vin','vout');
+
+
+insert into courses values ('CSE-DevOps','CSDV');
+insert into courses values ('CSE-CCVT','CCVT');
+insert into courses values ('CSE-GG','CSGG');
+insert into courses values ('CSE-CSF','CSFC');
+insert into courses values ('CSE-BIGDATA','CSBD');
+insert into courses values ('Petroleum','PTRL');
+insert into courses values ('Civil','CVLL');
+insert into courses values ('Aerospace','AERO');
+
+
+insert into student values ('Nishkarsh Raj','500060720','nish123!@#','R171217041','CSE-DevOps',9005445752,9415956617,'nishkarshraj000@gmail.com','D203');
+insert into student values ('Lakshika Parihar','500060110','lipika@321','R171217031','CSE-DevOps',9839127390,7302200208,'pariharlakshika@gmail.com','F308');
+
+
+insert into warden values ('Mr. Rishi',9793195044,'rishi@gmail.com','rishi@123');
+insert into warden values ('Mr. Rawat',9415579318,'rawat@gmail.com','rawat@123');
+insert into warden values ('Mr. Negi',9450410510,'negi@gmail.com','negi@123');
+
+
+insert into guard values ('Mohit Yadav',9999955555,'G1','mohit@123');
+insert into guard values ('Vaibhav Gupta',9898989898,'G2','vaibhav@123');
+
+
+insert into outpass values ('500060720','Nishkarsh Raj','CSE-DevOps',9005445752,9415956617,'D203','15/04/2019','18/04/2019','G','Y','Y');
+
+
