@@ -1,0 +1,67 @@
+create table adminpass
+(
+adminpass varchar(20) primary key
+);
+
+insert into adminpass values('Nishkarsh@123');
+select * from adminpass;
+
+create table courses
+(
+coursename varchar(40) primary key,
+courseid varchar(8)
+);
+
+
+
+
+
+create table student
+(
+name varchar(25) not null,
+sapid varchar(9) check (sapid = '5000%'),
+password varchar(12),
+regnum varchar(12) not null,
+course varchar(15),
+contact number(10),
+contactp number(10),
+email varchar(40),
+roomnum varchar(5),
+primary key (email,password,sapid),
+foreign key (course) references courses(coursename)
+);
+
+
+create table warden
+(
+name varchar(25) not null,
+contact number(10) not null unique,
+email varchar(40),
+password varchar(12),
+primary key(email,password)
+);
+
+
+create table guard
+(
+name varchar(25) not null,
+contact number(10),
+guardid varchar(5),
+password varchar(25),
+primary key(guardid,password)
+);
+
+create table outpass
+(
+sapid varchar(9) check (sapid = '5000%'),
+name varchar(25) not null,
+course varchar(15),
+contact number(10),
+contactp number(10),
+roomnum varchar(5),
+leavedate varchar(10),
+returndate varchar(10),
+permission varchar(1),
+vin varchar(1),
+vout varchar(1)
+);
