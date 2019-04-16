@@ -61,8 +61,6 @@ long contact;
 long contactp;
 String leavedate; //specified by student !!! Try to use Date and Time Utility
 String returndate; //specified by student
-String Outtime; //specified by guard on verification
-String Intime; //specified by guard on verification
 String address; //Where you are going
 //creating a constructor
 OutPass()
@@ -74,8 +72,6 @@ contact = 0000;
 contactp = 0000;
 leavedate = "";
 returndate = "";
-Outtime = "";
-Intime = "";
 address = "";
 }
 public void createpass(String name1,String room1,String course1,long contact1, long contactp1) //used by student
@@ -181,19 +177,59 @@ System.out.println("Permission Denied");
 }
 public void verification_out() //used by guard
 {
-Scanner rout = new Scanner(System.in);
-System.out.print("Enter the Out time: ");
-Outtime = rout.nextLine();
-System.out.println("The Out Time has been specified!!!");
-//Submit to the the Database;
-}
-public void verification_in() //used by guard
+try
 {
-Scanner rin = new Scanner(System.in);
-System.out.print("Enter the In time: ");
-Intime = rin.nextLine();
-System.out.println("The Intime has been specified!!!");
-//Submit to the the Database;
+DB obj = new DB();
+obj.initDB();
+Class.forName("oracle.jdbc.driver.OracleDriver"); 
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
+Statement st = con.createStatement(); 
+String sql = "select sapid from outpass where vout in (n,N)";
+ResultSet rs = st.executeQuery(sql);
+while(rs.next())
+{
+System.out.println(rs.getString(1));
+}
+int sap123;
+Scanner reader = new Scanner(System.in);
+System.out.print("Enter the Sapid whose Verification you want to perform (Press 1 to return to homepage): ");
+sap123 = reader.nextInt();
+String sql1 = "update outpass set vout = 'y' where sapid = '" + sap123 +"';";
+st.executeUpdate(sql1);
+con.close(); 
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+public void verification_in() 
+{
+try
+{
+DB obj = new DB();
+obj.initDB();
+Class.forName("oracle.jdbc.driver.OracleDriver"); //3) initialize driver
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
+Statement st = con.createStatement(); 
+String sql = "select sapid from outpass where vin in (n,N)";
+ResultSet rs = st.executeQuery(sql);
+while(rs.next())
+{
+System.out.println(rs.getString(1));
+}
+int sap123;
+Scanner reader = new Scanner(System.in);
+System.out.print("Enter the Sapid whose Verification you want to perform (Press 1 to return to homepage): ");
+sap123 = reader.nextInt();
+String sql1 = "update outpass set vin = 'y' where sapid = '" + sap123 +"';";
+st.executeUpdate(sql1);
+con.close(); 
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
 }
 }
 
