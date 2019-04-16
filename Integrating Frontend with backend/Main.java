@@ -150,29 +150,80 @@ System.out.println("Triggered Notification to the Warden. Waiting for permission
 }
 public void permission() //used by warden
 {
+Clear c = new Clear();
+c.cls();
 try
 {
-int ch123;
+int sap123;
+char ch123;
 Scanner redder = new Scanner(System.in);
-//Check from DB
-System.out.println("Enter 1 to grant permission or else enter anything to deny!");
-ch123 = redder.nextInt();
-NotifyStudent(ch123);
+DB obj = new DB();
+obj.initDB();
+try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); 
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement(); 
+String sql = "select sapid from outpass where permission in (n,N)";
+ResultSet rs = st.executeQuery(sql); 
+while(rs.next())
+{
+System.out.println(rs.getString(1));
+}
+System.out.println("Enter Sapid to grant permission");
+sap123 = redder.nextInt();
+System.out.println("Enter the permission as G(granted) or D(Denied)");
+ch123 = redder.nextLine().charAt(0);
+if (ch123 == 'D')
+{
+String sql1 = "update outpass set permission = 'd' where sapid ='" + sap123 + "'";
+st.executeUpdate(sql1);
+}
+else if (ch123 == 'G')
+{
+String sql1 = "update outpass set permission = 'g' where sapid ='" + sap123 + "'";
+st.executeUpdate(sql1);
+}
+else
+{
+permission();
+}
+con.close(); 
+}
+catch(Exception e)
+{
+System.out.println(e);
+permission();
+}
 }
 catch(InputMismatchException e)
 {
 System.out.println(e);
+permission();
 }
 }
-public void NotifyStudent(int flag)
+public void NotifyStudent(int sapid)
 {
-if(flag == 1)
+Clear cd = new Clear();
+cd.cls();
+try 
 {
-System.out.println("Permission Granted");
+DB object1 = new DB();
+object1.initDB();
+Class.forName("oracle.jdbc.driver.OracleDriver"); 
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement(); 
+String sql = "select permission from outpass where sapid = "+sapid+"";
+ResultSet rs = st.executeQuery(sql); 
+while(rs.next())
+{
+System.out.println(rs.getInt(1));
 }
-else
+con.close(); 
+}
+catch(Exception e)
 {
-System.out.println("Permission Denied");
+System.out.println(e);
 }
 }
 public void verification_out() //used by guard
@@ -247,21 +298,45 @@ class IFStu
 		System.out.println("1) Check Your Details");
 		System.out.println("2) Check Attendance");
 		System.out.println("3) Create Outpass");
-		System.out.println("4) Logout");
+		System.out.println("4) Check Outpass details");
+		System.out.println("5) Logout");
 		System.out.print("Enter your choice: ");
 		choice123 = reader123.nextInt();
+int s;
+Outpass object11 = new Outpass();
+DB obj11 = new DB();
+Class.forName("oracle.jdbc.driver.OracleDriver"); 	
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement();
 		switch(choice123)
 		{
 		case 1: c1.cls();
- checkdetails();
+checkdetails();
+menu(n,p);
 		break;
 		case 2:c1.cls();
- attendance();
+attendance();
+menu(n,p);
 		break;
 		case 3: c1.cls();
- createout();
+createout();
+menu(n,p);
 		break;
 		case 4: c1.cls();
+System.out.print("Re-enter your SAP Id for verification: ");
+s = reader123.nextInt();
+String sql = "select permission from outpass where sapid ="+s+"";
+st.executeQuery(sql);
+ResultSet rs = st.executeQuery(sql); 
+while(rs.next())
+{
+System.out.println(rs.getInt(1));
+}
+con.close();
+object11.NotifyStudent(s);
+menu(n,p);
+		break;
+		case 5: c1.cls();
  logout();
 		break;
 		default: c1.cls();
