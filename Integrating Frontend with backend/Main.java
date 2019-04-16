@@ -101,6 +101,7 @@ address = reader.nextLine();
 show();
 System.out.println("Enter 1: Confirm Details and Submit OutPass Request");
 System.out.println("Enter 2: Discard and Recreate your Pass");
+System.out.println("Enter 3: Exit the Application");
 System.out.print("Enter your choice: ");
 ch = reader.nextInt();
 switch(ch)
@@ -115,6 +116,9 @@ case 2:
 c.cls();
 createpass(name1,room1,course1,contact1,contactp1);
 break;
+case 3:
+c.cls();
+System.exit(0);
 default: 
 c.cls();
 System.out.println("Wrong Choice Entered!!! Redirected to the Create Pass Menu\n\n");
