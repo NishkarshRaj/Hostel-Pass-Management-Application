@@ -303,23 +303,43 @@ class IFStu
 		System.out.print("Enter your choice: ");
 		choice123 = reader123.nextInt();
 int s;
-Outpass object11 = new Outpass();
+OutPass object11 = new OutPass();
 DB obj11 = new DB();
 Class.forName("oracle.jdbc.driver.OracleDriver"); 	
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement();
+ResultSet rs;
 		switch(choice123)
 		{
 		case 1: c1.cls();
-checkdetails();
+String sql5 = "select * from outpass where email = "+n+"";
+st.executeQuery(sql5);
+ rs = st.executeQuery(sql5); 
+while(rs.next())
+{
+System.out.println(rs.getString(1)+rs.getString(2)+rs.getString(3)+rs.getString(4)+rs.getString(5)+rs.getInt(6)+rs.getInt(7)+rs.getString(8)+rs.getString(9));
+}
 menu(n,p);
 		break;
 		case 2:c1.cls();
-attendance();
+System.out.println("Check Attendance Module to be added later");
 menu(n,p);
 		break;
 		case 3: c1.cls();
-createout();
+sql5 = "select name,roomnum,course,contact,contactp from student where email = "+n+"";
+st.executeQuery(sql5);
+ rs = st.executeQuery(sql5);
+String s1,s2,s3;
+int i4,i5;
+while(rs.next())
+{ 
+s1 = rs.getString(1);
+s2 = rs.getString(2);
+s3 = rs.getString(3);
+i4 = rs.getInt(4);
+i5 = rs.getInt(5);
+object11.createpass(s1,s2,s3,i4,i5);
+}
 menu(n,p);
 		break;
 		case 4: c1.cls();
@@ -327,46 +347,34 @@ System.out.print("Re-enter your SAP Id for verification: ");
 s = reader123.nextInt();
 String sql = "select permission from outpass where sapid ="+s+"";
 st.executeQuery(sql);
-ResultSet rs = st.executeQuery(sql); 
+rs = st.executeQuery(sql); 
 while(rs.next())
 {
 System.out.println(rs.getInt(1));
 }
-con.close();
 object11.NotifyStudent(s);
 menu(n,p);
 		break;
 		case 5: c1.cls();
- logout();
+System.exit(0);
 		break;
 		default: c1.cls();
 		System.out.println("Invalid Options Entered!!! Redirected to Main Menu");
 		menu(n,p);
 		}
+con.close();
 	}
 	catch(InputMismatchException e)
 	{
 	System.out.println(e);
 	menu(n,p);
 	}
+catch(Exception e)
+{
+System.out.println(e);
+menu(n,p);
+}
 	}
-public void checkdetails()
-{
-System.out.println("Checking Details from Database");
-}
-public void attendance()
-{
-System.out.println("Checking Attendance from Database");
-}
-public void createout()
-{
-OutPass obj = new OutPass();
-obj.createpass("","","",123l,123l); //sending default parameters until DB connected
-}
-public void logout()
-{
-System.exit(0);
-}
 }
 
 
