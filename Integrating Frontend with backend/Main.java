@@ -307,6 +307,12 @@ System.out.println("Contact: " + contactnumber);
 System.out.println("Guardian Contact number: " + guardiancontact);
 System.out.println("Email ID: " + email);
 }
+public String insertionstatement()
+{
+//insert into student values ('name','sapid','password','regnum','Course',contactnumber,guardiancontact,'email','Room');
+String inst = "insert into student values ('" + name + "','" + sapid + "','" + password + "',' " + regnum + "','" + Course + "', " + contactnumber + ", " +  guardiancontact + ",' " + email + "','" + Room + "');";
+return inst;
+}
 public void loginpage()
 {
 Clear cl = new Clear();
@@ -376,8 +382,28 @@ switch(ch)
 {
 case 1:
 c.cls();
-System.out.println("Add details to the Database!!! To be done");
-System.out.println("Redirecting to the Login Page");
+
+// Adding to the Database!!
+// insert into student values ('name','sap','pass','regnum','course',c1,c2,'email','room');
+try
+{
+DB obdb = new DB();
+obdb.initDB();
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
+Statement st = con.createStatement();
+//String inst = "insert into student values ();"
+String inst;
+inst = s1.insertionstatement();
+st.executeUpdate(inst);
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+
+
+
 s1.loginpage();
 break;
 case 2: 
@@ -385,6 +411,7 @@ c.cls();
 createstu();
 break;
 case 3:
+c.cls();
 System.exit(0);
 break;
 default: 
