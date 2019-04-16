@@ -525,6 +525,8 @@ try
 Scanner r2 = new Scanner(System.in);
 System.out.print("Enter the name of the Warden: ");
 name = r2.nextLine();
+System.out.print("Enter your password: ");
+password = r2.nextLine();
 System.out.print("Enter the Email ID of the Warden: ");
 email = r2.nextLine();
 System.out.print("Enter the contact number of the Warden: ");
@@ -543,22 +545,47 @@ System.out.println("Name: " + name);
 System.out.println("Contact: " + contactnumber);
 System.out.println("Email ID: " + email);
 }
+public String insertionstatement()
+{
+String inst = "insert into warden values ('"+name+"',"+contactnumber+",'"+email+"','"+password+"');";
+return inst;
+}
 public void loginpage()
 {
 Clear cl = new Clear();
 Scanner reader = new Scanner(System.in);
-//String defaultpass = "Nishkarsh@123"; //until DB connected
 String n,p,adminpass; //create check for username and password
-//adminpass = "Nishkarsh@123" //Extra security for admin interface
 int elsech;
 System.out.println("Warden Login Page!!");
-System.out.print("Enter Username: ");
+System.out.print("Enter Email ID: ");
 n = reader.nextLine();
 System.out.print("Enter Password: ");
 p = reader.nextLine();
 System.out.print("Enter the Administrator Password: ");
 adminpass = reader.nextLine();
-if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
+
+int flag = 0;
+try
+{
+DB odb = new DB();
+odb.initDB();
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement(); 
+String sql = "select email,password from warden where email = " + n + " , password = " + p + ";";
+ResultSet rs = st.executeQuery(sql); 
+while(rs.next())
+{
+flag = 1;
+}
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+
+
+if (flag == 1) 
 {
 if(adminpass.equals("Nishkarsh@123"))
 {
@@ -641,8 +668,22 @@ switch(ch)
 {
 case 1:
 c.cls();
-System.out.println("Add details to the Database!!! To be done");
-System.out.println("Redirecting to the Login Page");
+try
+{
+DB obdb = new DB();
+obdb.initDB();
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
+Statement st = con.createStatement();
+String inst;
+inst = w1.insertionstatement();
+System.out.println(inst);
+st.executeUpdate(inst);
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
 w1.loginpage();
 break;
 case 2: 
