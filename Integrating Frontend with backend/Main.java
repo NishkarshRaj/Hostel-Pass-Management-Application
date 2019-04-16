@@ -340,7 +340,7 @@ DB odb = new DB();
 odb.initDB();
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select email,password from student where email = " + email + " , password = " + password + ";";
+String sql = "select email,password from student where email = " + n + " , password = " + p + ";";
 ResultSet rs = st.executeQuery(sql); 
 while(rs.next())
 {
@@ -431,9 +431,6 @@ catch(Exception e)
 {
 System.out.println(e);
 }
-
-
-
 s1.loginpage();
 break;
 case 2: 
@@ -731,11 +728,12 @@ try
 Scanner r2 = new Scanner(System.in);
 System.out.print("Enter the name of the Guard: ");
 name = r2.nextLine();
+System.out.print("Enter password: ");
+password = r2.nextLine();
 System.out.print("Enter the Guard ID of the Guard: ");
 guardID = r2.nextInt();
 System.out.print("Enter the contact number of the Guard: ");
 contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporated inside int variable
-password = "Nishkarsh@123";
 }
 catch(InputMismatchException e)
 {
@@ -749,6 +747,12 @@ System.out.println("Name: " + name);
 System.out.println("Contact: " + contactnumber);
 System.out.println("GuardID: " + guardID);
 }
+public String insertionstatement()
+{
+//insert into guard ('name',contactnumber,'guardID','password');
+String inst = "insert into guard ('"+name+"',"+contactnumber+",'"+guardID+"','"+password+"');"; 
+return inst;
+}
 public void loginpage()
 {
 Clear cl = new Clear();
@@ -758,15 +762,34 @@ String n,p,adminpass; //create check for username and password
 //adminpass = "12345678" //Extra security for admin interface but easy because guard may not remember difficult password
 int elsech;
 System.out.println("Guard Login Page!!");
-System.out.print("Enter Username: ");
+System.out.print("Enter Guard ID: ");
 n = reader.nextLine();
 System.out.print("Enter Password: ");
 p = reader.nextLine();
 System.out.print("Enter the Administrator Password: ");
 adminpass = reader.nextLine();
-if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
+int flag = 0;
+try
 {
-if(adminpass.equals("12345678"))
+DB odb = new DB();
+odb.initDB();
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement(); 
+String sql = "select guardid,password from guard where guardid = " + n + " , password = " + p + ";";
+ResultSet rs = st.executeQuery(sql); 
+while(rs.next())
+{
+flag = 1;
+}
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+if (flag == 1)
+{
+if(adminpass.equals("Nishkarsh@123"))
 {
 IFGuard obj = new IFGuard();
 obj.menu();
@@ -847,8 +870,24 @@ switch(ch)
 {
 case 1:
 c.cls();
-System.out.println("Add details to the Database!!! To be done");
-System.out.println("Redirecting to the Login Page");
+//insert into guard ('name',contact,'gid','pass');
+try
+{
+DB obdb = new DB();
+obdb.initDB();
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
+Statement st = con.createStatement();
+//String inst = "insert into student values ();"
+String inst;
+inst = g1.insertionstatement();
+//System.out.println(inst);
+st.executeUpdate(inst);
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
 g1.loginpage();
 break;
 case 2: 
