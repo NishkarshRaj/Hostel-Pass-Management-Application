@@ -236,7 +236,7 @@ System.out.println(e);
 
 class IFStu
 {
-	public void menu()
+	public void menu(String n,String p)
 	{
 	try
 	{
@@ -266,13 +266,13 @@ class IFStu
 		break;
 		default: c1.cls();
 		System.out.println("Invalid Options Entered!!! Redirected to Main Menu");
-		menu();
+		menu(n,p);
 		}
 	}
 	catch(InputMismatchException e)
 	{
 	System.out.println(e);
-	menu();
+	menu(n,p);
 	}
 	}
 public void checkdetails()
@@ -394,7 +394,7 @@ if(flag == 1)
 {
 cl.cls();
 IFStu obj12 = new IFStu();
-obj12.menu();
+obj12.menu(n,p);
 }
 else
 {
@@ -491,7 +491,7 @@ class IFWarden
 Clear c41 = new Clear();
 Scanner reader = new Scanner(System.in);
 int ch;
-public void menu()
+public void menu(String n,String p)
 {
 try
 {
@@ -506,11 +506,11 @@ switch(ch)
 {
 case 1:
 c41.cls();
-permissions();
+permissions(n,p);
 break;
 case 2:
 c41.cls();
-attendance();
+attendance(n,p);
 break;
 case 3:
 c41.cls();
@@ -519,7 +519,7 @@ break;
 default: 
 c41.cls();
 System.out.println("Wrong Choice Entered!! Redirected to the main menu!!!");
-menu();
+menu(n,p);
 }
 }
 catch(InputMismatchException e)
@@ -527,18 +527,18 @@ catch(InputMismatchException e)
 System.out.println(e);
 }
 }
-public void permissions()
+public void permissions(String n,String p)
 {
 c41.cls();
 OutPass obj = new OutPass();
 obj.permission();
-menu();
+menu(n,p);
 }
-public void attendance()
+public void attendance(String n,String p)
 {
 c41.cls();
 System.out.println("Checking the attendance from DB");
-menu();
+menu(n,p);
 }
 public void logout()
 {
@@ -626,7 +626,7 @@ if (flag == 1)
 if(adminpass.equals("Nishkarsh@123"))
 {
 IFWarden obj = new IFWarden();
-obj.menu();
+obj.menu(n,p);
 }
 else
 {
@@ -744,7 +744,7 @@ OutPass obj = new OutPass();
 Clear c = new Clear();
 int ch;
 Scanner reader = new Scanner(System.in);
-public void menu()
+public void menu(String n,String p)
 {
 c.cls();
 System.out.println("1) Put Out Time in DB");
@@ -755,32 +755,32 @@ ch = reader.nextInt();
 switch(ch)
 {
 case 1: 
-outdb();
-menu();
+outdb(n,p);
+menu(n,p);
 break;
 case 2:
-indb();
-menu();
+indb(n,p);
+menu(n,p);
 break;
 case 3:
 logout();
 break;
 default: c.cls();
 System.out.println("Wrong Choice Entered!!!");
-menu();
+menu(n,p);
 }
 }
-public void outdb()
+public void outdb(String n,String p)
 {
 c.cls();
 obj.verification_out();
-menu();
+menu(n,p);
 }
-public void indb()
+public void indb(String n,String p)
 {
 c.cls();
 obj.verification_in();
-menu();
+menu(n,p);
 }
 public void logout()
 {
@@ -869,7 +869,7 @@ if (flag == 1)
 if(adminpass.equals("Nishkarsh@123"))
 {
 IFGuard obj = new IFGuard();
-obj.menu();
+obj.menu(n,p);
 }
 else
 {
