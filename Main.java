@@ -186,16 +186,28 @@ try
 Class.forName("oracle.jdbc.driver.OracleDriver"); 
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select sapid from outpass where permission in ('n','N')";
+String sql = "select * from outpass where permission in ('n','N')";
 //System.out.println("Check 1");
 ResultSet rs = st.executeQuery(sql);
 //System.out.println("Check 2"); 
 while(rs.next())
 {
 //System.out.println("Check 3");
-System.out.println(rs.getString(1));
+//System.out.println(rs.getString(1) + rs.getString(2) +rs.getString(3) +rs.getString(4) +rs.getString(5) +rs.getString(6) +rs.getString(7) +rs.getString(8) +rs.getString(9) +rs.getString(10) +rs.getString(11));
+System.out.println("SAP ID: " + rs.getString(1));
+System.out.println("Name: " + rs.getString(2));
+System.out.println("Course: " + rs.getString(3));
+System.out.println("Contact: " + rs.getString(4));
+System.out.println("Parent Contact: " + rs.getString(5));
+System.out.println("Room Number: " + rs.getString(6));
+System.out.println("Leave Date: " + rs.getString(7));
+System.out.println("Return Date: " + rs.getString(8));
+//System.out.println(": " + rs.getString(9));
+//System.out.println(": " + rs.getString(10));
+//System.out.println(": " + rs.getString(11));
+System.out.println("\n\n");
 }
-System.out.println("Enter Sapid to grant permission");
+System.out.print("Enter Sapid to grant permission: ");
 sap123 = redder.nextInt();
 System.out.println("Enter the permission as G(granted) or D(Denied)");
 redder.nextLine();
