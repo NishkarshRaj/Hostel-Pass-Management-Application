@@ -2,7 +2,8 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.sql.*;
-
+//Set path using
+//set classpath=C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar;.
 class DB
 {
 public void initDB()
@@ -102,7 +103,24 @@ System.out.print("Enter your choice: ");
 ch = reader.nextInt();
 switch(ch)
 {
-case 1: System.out.println("OutPass Submitted"); //Add A Module to send it to the DB so that Warden and Guard can check and verify from DB
+case 1:
+DB obj = new DB();
+obj.initDB();
+try 
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); 
+Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
+Statement st = con.createStatement(); 
+String no = "n";
+String sql = "insert into outpass values('"+500060720+"','"+name1+"','"+course1+"',"+contact1+","+contactp1+",'"+room+"','"+leavedate+"','"+returndate+"','"+no.charAt(0)+"','"+no.charAt(0)+"','"+no.charAt(0)+"')";
+//System.out.println(sql);
+st.executeUpdate(sql); 
+con.close(); 
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
 NotifyParent(contactp1);
 NotifyWarden();
 //Main m = new Main();
@@ -151,11 +169,11 @@ System.out.println("Triggered Notification to the Warden. Waiting for permission
 public void permission() //used by warden
 {
 Clear c = new Clear();
-c.cls();
+//c.cls();
 try
 {
 int sap123;
-char ch123;
+String ch123;
 Scanner redder = new Scanner(System.in);
 DB obj = new DB();
 obj.initDB();
@@ -164,22 +182,26 @@ try
 Class.forName("oracle.jdbc.driver.OracleDriver"); 
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select sapid from outpass where permission in (n,N)";
-ResultSet rs = st.executeQuery(sql); 
+String sql = "select sapid from outpass where permission in ('n','N')";
+//System.out.println("Check 1");
+ResultSet rs = st.executeQuery(sql);
+//System.out.println("Check 2"); 
 while(rs.next())
 {
+//System.out.println("Check 3");
 System.out.println(rs.getString(1));
 }
 System.out.println("Enter Sapid to grant permission");
 sap123 = redder.nextInt();
 System.out.println("Enter the permission as G(granted) or D(Denied)");
-ch123 = redder.nextLine().charAt(0);
-if (ch123 == 'D')
+redder.nextLine();
+ch123 = redder.nextLine();
+if (ch123.equals("D"))
 {
 String sql1 = "update outpass set permission = 'd' where sapid ='" + sap123 + "'";
 st.executeUpdate(sql1);
 }
-else if (ch123 == 'G')
+else if (ch123.equals("G"))
 {
 String sql1 = "update outpass set permission = 'g' where sapid ='" + sap123 + "'";
 st.executeUpdate(sql1);
@@ -235,7 +257,7 @@ obj.initDB();
 Class.forName("oracle.jdbc.driver.OracleDriver"); 
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
 Statement st = con.createStatement(); 
-String sql = "select sapid from outpass where vout in (n,N)";
+String sql = "select sapid from outpass where vout in ('n','N')";
 ResultSet rs = st.executeQuery(sql);
 while(rs.next())
 {
@@ -245,7 +267,7 @@ int sap123;
 Scanner reader = new Scanner(System.in);
 System.out.print("Enter the Sapid whose Verification you want to perform (Press 1 to return to homepage): ");
 sap123 = reader.nextInt();
-String sql1 = "update outpass set vout = 'y' where sapid = '" + sap123 +"';";
+String sql1 = "update outpass set vout = 'y' where sapid = '" + sap123 +"'";
 st.executeUpdate(sql1);
 con.close(); 
 }
@@ -263,7 +285,7 @@ obj.initDB();
 Class.forName("oracle.jdbc.driver.OracleDriver"); //3) initialize driver
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678");
 Statement st = con.createStatement(); 
-String sql = "select sapid from outpass where vin in (n,N)";
+String sql = "select sapid from outpass where vin in ('n','N')";
 ResultSet rs = st.executeQuery(sql);
 while(rs.next())
 {
@@ -273,7 +295,7 @@ int sap123;
 Scanner reader = new Scanner(System.in);
 System.out.print("Enter the Sapid whose Verification you want to perform (Press 1 to return to homepage): ");
 sap123 = reader.nextInt();
-String sql1 = "update outpass set vin = 'y' where sapid = '" + sap123 +"';";
+String sql1 = "update outpass set vin = 'y' where sapid = '" + sap123 +"'";
 st.executeUpdate(sql1);
 con.close(); 
 }
@@ -312,35 +334,97 @@ ResultSet rs;
 		switch(choice123)
 		{
 		case 1: c1.cls();
-String sql5 = "select * from outpass where email = "+n+"";
+String sql5 = "select name,sapid,course from student where email = '"+n+"'";
 st.executeQuery(sql5);
  rs = st.executeQuery(sql5); 
 while(rs.next())
 {
-System.out.println(rs.getString(1)+rs.getString(2)+rs.getString(3)+rs.getString(4)+rs.getString(5)+rs.getInt(6)+rs.getInt(7)+rs.getString(8)+rs.getString(9));
+System.out.println("Name: " + rs.getString(1));
+System.out.println("SAP ID: " + rs.getString(2));
+System.out.println("Course: " + rs.getString(3));
+//System.out.println(rs.getString(1)+rs.getString(2)+rs.getString(3)+rs.getString(4)+rs.getString(5)+rs.getInt(6)+rs.getInt(7)+rs.getString(8)+rs.getString(9));
 }
+//reader123.nextLine();
+//menu(n,p);
+
+try
+{
+int ch5;
+System.out.println("\n\n\n");
+System.out.println("Enter 1) Return to the homepage");
+System.out.println("Enter 2) Logout and Exit Application");
+System.out.println("Enter anything else to exit application");
+System.out.print("Enter your choice: ");
+ch5 = reader123.nextInt();
+switch(ch5)
+{
+case 1:
 menu(n,p);
+break;
+case 2:
+c1.cls();
+System.exit(0);
+break;
+default: 
+}
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+menu(n,p);
+}
+
 		break;
 		case 2:c1.cls();
 System.out.println("Check Attendance Module to be added later");
 menu(n,p);
 		break;
-		case 3: c1.cls();
-sql5 = "select name,roomnum,course,contact,contactp from student where email = "+n+"";
-st.executeQuery(sql5);
- rs = st.executeQuery(sql5);
+		case 3: //c1.cls();
+//System.out.println(n);
+//sql5 = "select name,roomnum,course,contact,contactp from student where email = '"+n+"'";
+sql5 = "select name from student where email = '"+n+"'";
+//System.out.println(sql5);
+ResultSet rs1 = st.executeQuery(sql5);
 String s1,s2,s3;
-int i4,i5;
-while(rs.next())
+long i4,i5;
+while(rs1.next())
 { 
-s1 = rs.getString(1);
-s2 = rs.getString(2);
-s3 = rs.getString(3);
-i4 = rs.getInt(4);
-i5 = rs.getInt(5);
-object11.createpass(s1,s2,s3,i4,i5);
+s1 = rs1.getString(1);
+//s2 = rs1.getString(2);
+//s3 = rs1.getString(3);
+//i4 = rs1.getInt(4);
+//i5 = rs1.getInt(5);
+object11.createpass(s1,"D203","CSE-DevOps",925025,90052852);
 }
+try
+{
+int ch5;
+System.out.println("\n\n\n");
+System.out.println("Enter 1) Return to the homepage");
+System.out.println("Enter 2) Logout and Exit Application");
+System.out.println("Enter anything else to exit application");
+System.out.print("Enter your choice: ");
+ch5 = reader123.nextInt();
+switch(ch5)
+{
+case 1:
 menu(n,p);
+break;
+case 2:
+c1.cls();
+System.exit(0);
+break;
+default: 
+}
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+menu(n,p);
+}
+
+//object11.createpass(s1,s2,s3,i4,i5);
+//menu(n,p);
 		break;
 		case 4: c1.cls();
 System.out.print("Re-enter your SAP Id for verification: ");
@@ -372,7 +456,7 @@ con.close();
 catch(Exception e)
 {
 System.out.println(e);
-menu(n,p);
+//menu(n,p);
 }
 	}
 }
@@ -434,7 +518,7 @@ System.out.println("Email ID: " + email);
 public String insertionstatement()
 {
 //insert into student values ('name','sapid','password','regnum','Course',contactnumber,guardiancontact,'email','Room');
-String inst = "insert into student values ('" + name + "','" + sapid + "','" + password + "','" + regnum + "','" + Course + "'," + contactnumber + "," +  guardiancontact + ",'" + email + "','" + Room + "');";
+String inst = "insert into student values ('" + name + "','" + sapid + "','" + password + "','" + regnum + "','" + Course + "'," + contactnumber + "," +  guardiancontact + ",'" + email + "','" + Room + "')";
 return inst;
 }
 public void loginpage()
@@ -459,7 +543,8 @@ DB odb = new DB();
 odb.initDB();
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select email,password from student where email = " + n + " , password = " + p + ";";
+String sql = "select email,password from student where email = '" + n + "'";
+//System.out.println(sql);
 ResultSet rs = st.executeQuery(sql); 
 while(rs.next())
 {
@@ -542,7 +627,7 @@ Statement st = con.createStatement();
 //String inst = "insert into student values ();"
 String inst;
 inst = s1.insertionstatement();
-System.out.println(inst);
+//System.out.println(inst);
 st.executeUpdate(inst);
 con.close();
 }
@@ -666,7 +751,7 @@ System.out.println("Email ID: " + email);
 }
 public String insertionstatement()
 {
-String inst = "insert into warden values ('"+name+"',"+contactnumber+",'"+email+"','"+password+"');";
+String inst = "insert into warden values ('"+name+"',"+contactnumber+",'"+email+"','"+password+"')";
 return inst;
 }
 public void loginpage()
@@ -690,7 +775,8 @@ DB odb = new DB();
 odb.initDB();
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select email,password from warden where email = " + n + " , password = " + p + ";";
+String sql = "select email,password from warden where email = '" + n + "'";
+System.out.println(sql);
 ResultSet rs = st.executeQuery(sql); 
 while(rs.next())
 {
@@ -778,7 +864,7 @@ w1.SetWarden();
 c.cls();
 w1.show();
 System.out.println("\n\n\n");
-System.out.println("Enter 1: Confirm Details and Create Wardne!"); //Send to the Database!!! and then directly login!!!
+System.out.println("Enter 1: Confirm Details and Create Warden!"); //Send to the Database!!! and then directly login!!!
 System.out.println("Enter 2: Discard and redirect to Create Warden Page: ");
 System.out.println("Enter 3: Exit the application: ");
 System.out.print("Enter your choice: ");
@@ -795,7 +881,7 @@ Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:x
 Statement st = con.createStatement();
 String inst;
 inst = w1.insertionstatement();
-System.out.println(inst);
+//System.out.println(inst);
 st.executeUpdate(inst);
 con.close();
 }
@@ -830,8 +916,8 @@ Scanner reader = new Scanner(System.in);
 public void menu(String n,String p)
 {
 c.cls();
-System.out.println("1) Put Out Time in DB");
-System.out.println("2) Put In Time in DB");
+System.out.println("1) Verification of Outing");
+System.out.println("2) Verification of Return");
 System.out.println("3) Logout");
 System.out.print("Enter your choice: ");
 ch = reader.nextInt();
@@ -839,14 +925,68 @@ switch(ch)
 {
 case 1: 
 outdb(n,p);
+try
+{
+int ch5;
+System.out.println("\n\n\n");
+System.out.println("Enter 1) Return to the homepage");
+System.out.println("Enter 2) Logout and Exit Application");
+System.out.println("Enter anything else to exit application");
+System.out.print("Enter your choice: ");
+ch5 = reader.nextInt();
+switch(ch5)
+{
+case 1:
 menu(n,p);
 break;
 case 2:
+c.cls();
+System.exit(0);
+break;
+default: 
+}
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+menu(n,p);
+}
+//menu(n,p);
+break;
+case 2:
 indb(n,p);
+try
+{
+int ch5;
+System.out.println("\n\n\n");
+System.out.println("Enter 1) Return to the homepage");
+System.out.println("Enter 2) Logout and Exit Application");
+System.out.println("Enter anything else to exit application");
+System.out.print("Enter your choice: ");
+ch5 = reader.nextInt();
+switch(ch5)
+{
+case 1:
 menu(n,p);
 break;
+case 2:
+c.cls();
+System.exit(0);
+break;
+default: 
+}
+}
+catch(InputMismatchException e)
+{
+System.out.println(e);
+menu(n,p);
+}
+
+//menu(n,p);
+break;
 case 3:
-logout();
+c.cls();
+System.exit(0);
 break;
 default: c.cls();
 System.out.println("Wrong Choice Entered!!!");
@@ -855,20 +995,20 @@ menu(n,p);
 }
 public void outdb(String n,String p)
 {
-c.cls();
+//c.cls();
 obj.verification_out();
-menu(n,p);
+//menu(n,p);
 }
 public void indb(String n,String p)
 {
-c.cls();
+//c.cls();
 obj.verification_in();
-menu(n,p);
+//menu(n,p);
 }
 public void logout()
 {
 c.cls();
-logout();
+System.exit(0);
 }
 }
 
@@ -910,7 +1050,7 @@ System.out.println("GuardID: " + guardID);
 public String insertionstatement()
 {
 //insert into guard ('name',contactnumber,'guardID','password');
-String inst = "insert into guard ('"+name+"',"+contactnumber+",'"+guardID+"','"+password+"');"; 
+String inst = "insert into guard values ('"+name+"',"+contactnumber+",'"+guardID+"','"+password+"')"; 
 return inst;
 }
 public void loginpage()
@@ -935,7 +1075,7 @@ DB odb = new DB();
 odb.initDB();
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
-String sql = "select guardid,password from guard where guardid = " + n + " , password = " + p + ";";
+String sql = "select guardid,password from guard where guardid = '" + n+"'";
 ResultSet rs = st.executeQuery(sql); 
 while(rs.next())
 {
