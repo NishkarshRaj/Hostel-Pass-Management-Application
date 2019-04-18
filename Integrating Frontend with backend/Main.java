@@ -381,8 +381,8 @@ menu(n,p);
 		break;
 		case 3: //c1.cls();
 //System.out.println(n);
-//sql5 = "select name,roomnum,course,contact,contactp from student where email = '"+n+"'";
-sql5 = "select name from student where email = '"+n+"'";
+sql5 = "select name,roomnum,course,contact,contactp from student where email = '"+n+"'";
+//sql5 = "select name from student where email = '"+n+"'";
 //System.out.println(sql5);
 ResultSet rs1 = st.executeQuery(sql5);
 String s1,s2,s3;
@@ -390,11 +390,11 @@ long i4,i5;
 while(rs1.next())
 { 
 s1 = rs1.getString(1);
-//s2 = rs1.getString(2);
-//s3 = rs1.getString(3);
-//i4 = rs1.getInt(4);
-//i5 = rs1.getInt(5);
-object11.createpass(s1,"D203","CSE-DevOps",925025,90052852);
+s2 = rs1.getString(2);
+s3 = rs1.getString(3);
+i4 = rs1.getLong(4);
+i5 = rs1.getLong(5);
+object11.createpass(s1,s2,s3,i4,i5);
 }
 try
 {
@@ -456,7 +456,7 @@ con.close();
 catch(Exception e)
 {
 System.out.println(e);
-//menu(n,p);
+menu(n,p);
 }
 	}
 }
