@@ -63,9 +63,11 @@ long contactp;
 String leavedate; //specified by student !!! Try to use Date and Time Utility
 String returndate; //specified by student
 String address; //Where you are going
+String sap;
 //creating a constructor
 OutPass()
 {
+sap = "";
 name = "";
 room = "";
 course = "";
@@ -75,7 +77,7 @@ leavedate = "";
 returndate = "";
 address = "";
 }
-public void createpass(String name1,String room1,String course1,long contact1, long contactp1) //used by student
+public void createpass(String name1,String room1,String course1, String sap1, long contact1, long contactp1) //used by student
 {
 try
 {
@@ -86,6 +88,7 @@ System.out.println("Create Out Pass Module\n\n");
 Scanner reader = new Scanner(System.in);
 name = name1;
 room = room1;
+sap = sap1;
 course = course1;
 contact = contact1;
 contactp = contactp1;
@@ -112,7 +115,7 @@ Class.forName("oracle.jdbc.driver.OracleDriver");
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
 String no = "n";
-String sql = "insert into outpass values('"+500060720+"','"+name1+"','"+course1+"',"+contact1+","+contactp1+",'"+room+"','"+leavedate+"','"+returndate+"','"+no.charAt(0)+"','"+no.charAt(0)+"','"+no.charAt(0)+"')";
+String sql = "insert into outpass values('"+sap1+"','"+name1+"','"+course1+"',"+contact1+","+contactp1+",'"+room+"','"+leavedate+"','"+returndate+"','"+no.charAt(0)+"','"+no.charAt(0)+"','"+no.charAt(0)+"')";
 //System.out.println(sql);
 st.executeUpdate(sql); 
 con.close(); 
@@ -128,7 +131,7 @@ NotifyWarden();
 break;
 case 2: 
 c.cls();
-createpass(name1,room1,course1,contact1,contactp1);
+createpass(name1,room1,course1,sap1,contact1,contactp1);
 break;
 case 3:
 c.cls();
@@ -136,7 +139,7 @@ System.exit(0);
 default: 
 c.cls();
 System.out.println("Wrong Choice Entered!!! Redirected to the Create Pass Menu\n\n");
-createpass(name1,room1,course1,contact1,contactp1);
+createpass(name1,room1,course1,sap1,contact1,contactp1);
 }
 }
 catch(InputMismatchException e)
@@ -150,6 +153,7 @@ Clear c1 = new Clear();
 c1.cls();
 System.out.println("Verify your details for the current OutPass\n");
 System.out.println("Name: " + name);
+System.out.println("SAP ID: " + sap);
 System.out.println("Room Number: " + room);
 System.out.println("Course: " + course);
 System.out.println("Contact: " + contact);
@@ -381,20 +385,21 @@ menu(n,p);
 		break;
 		case 3: //c1.cls();
 //System.out.println(n);
-sql5 = "select name,roomnum,course,contact,contactp from student where email = '"+n+"'";
+sql5 = "select name,roomnum,course,sapid,contact,contactp from student where email = '"+n+"'";
 //sql5 = "select name from student where email = '"+n+"'";
 //System.out.println(sql5);
 ResultSet rs1 = st.executeQuery(sql5);
-String s1,s2,s3;
-long i4,i5;
+String s1,s2,s3,s4;
+long i1,i2;
 while(rs1.next())
 { 
 s1 = rs1.getString(1);
 s2 = rs1.getString(2);
 s3 = rs1.getString(3);
-i4 = rs1.getLong(4);
-i5 = rs1.getLong(5);
-object11.createpass(s1,s2,s3,i4,i5);
+s4 = rs1.getString(4);
+i1 = rs1.getLong(5);
+i2 = rs1.getLong(6);
+object11.createpass(s1,s2,s3,s4,i1,i2);
 }
 try
 {
