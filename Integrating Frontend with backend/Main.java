@@ -491,6 +491,7 @@ long contactnumber;
 long guardiancontact;
 String email;
 String password;
+Clear c = new Clear();
 public void SetStudent()
 {
 try
@@ -517,7 +518,15 @@ contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporat
 }
 catch(InputMismatchException e)
 {
+c.cls();
 System.out.println(e);
+SetStudent();
+}
+catch(Exception e)
+{
+c.cls();
+System.out.println(e);
+SetStudent();
 }
 }
 public void show()
