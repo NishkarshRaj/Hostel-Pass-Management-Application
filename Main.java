@@ -491,6 +491,7 @@ long contactnumber;
 long guardiancontact;
 String email;
 String password;
+Clear c = new Clear();
 public void SetStudent()
 {
 try
@@ -517,7 +518,15 @@ contactnumber = r2.nextLong(); //phone numbers of 10 digits cannot be incorporat
 }
 catch(InputMismatchException e)
 {
+c.cls();
 System.out.println(e);
+SetStudent();
+}
+catch(Exception e)
+{
+c.cls();
+System.out.println(e);
+SetStudent();
 }
 }
 public void show()
@@ -566,6 +575,10 @@ ResultSet rs = st.executeQuery(sql);
 while(rs.next())
 {
 flag = 1;
+if(p.equals(rs.getString(2)))
+{
+flag = 2;
+}
 }
 con.close();
 }
@@ -575,15 +588,39 @@ System.out.println(e);
 }
 
 //if (p.equals("Nishkarsh@123")) //BCD!!! In Java .equals compares value while == is used to compare reference and is only meant for objects 
-if(flag == 1)
+if(flag == 2)
 {
 cl.cls();
 IFStu obj12 = new IFStu();
 obj12.menu(n,p);
 }
-else
+else if(flag == 1)
 {
 System.out.println("Invalid Password!");
+System.out.println("Enter 1 to redirect to login page!");
+System.out.println("Enter 2 to exit the application!!");
+System.out.print("Enter your choice: ");
+elsech = reader.nextInt();
+if(elsech == 1)
+{
+cl.cls();
+loginpage();
+}
+else if(elsech == 2)
+{
+cl.cls();
+System.exit(0);
+}
+else
+{
+cl.cls();
+System.out.println("Wrong Choice Entered!!! Exiting the application!");
+System.exit(0);
+}
+}
+else
+{
+System.out.println("Invalid Email!");
 System.out.println("Enter 1 to redirect to login page!");
 System.out.println("Enter 2 to exit the application!!");
 System.out.print("Enter your choice: ");
@@ -793,11 +830,15 @@ odb.initDB();
 Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","SYSTEM","12345678"); 
 Statement st = con.createStatement(); 
 String sql = "select email,password from warden where email = '" + n + "'";
-System.out.println(sql);
+//System.out.println(sql);
 ResultSet rs = st.executeQuery(sql); 
 while(rs.next())
 {
 flag = 1;
+if(p.equals(rs.getString(2)))
+{
+flag = 2;
+}
 }
 con.close();
 }
@@ -807,41 +848,65 @@ System.out.println(e);
 }
 
 
-if (flag == 1) 
+if (flag == 2) 
 {
-if(adminpass.equals("Nishkarsh@123"))
+	if(adminpass.equals("Nishkarsh@123"))
+	{
+	IFWarden obj = new IFWarden();
+	obj.menu(n,p);
+	}
+	else
+	{
+	System.out.println("Wrong Admin Password");
+	System.out.println("Enter 1 to redirect to login page!");
+	System.out.println("Enter 2 to exit the application!!");
+	System.out.print("Enter your choice: ");
+	elsech = reader.nextInt();
+	if(elsech == 1)
+	{
+	cl.cls();
+	loginpage();
+	}
+	else if(elsech == 2)
+	{
+	cl.cls();
+	System.exit(0);
+	}
+	else
+	{
+	cl.cls();
+	System.out.println("Wrong Choice Entered!!! Exiting the application!");
+	System.exit(0);
+	}
+	}
+}
+else if (flag == 1)
 {
-IFWarden obj = new IFWarden();
-obj.menu(n,p);
+	System.out.println("Invalid Password!");
+	System.out.println("Enter 1 to redirect to login page!");
+	System.out.println("Enter 2 to exit the application!!");
+	System.out.print("Enter your choice: ");
+	elsech = reader.nextInt();
+	if(elsech == 1)
+	{
+		cl.cls();
+		loginpage();
+	}
+	else if(elsech == 2)
+	{
+		cl.cls();
+		System.exit(0);
+	}
+	else
+	{
+		cl.cls();
+		System.out.println("Wrong Choice Entered!!! Exiting the application!");
+		System.exit(0);
+	}
 }
 else
 {
-System.out.println("Wrong Admin Password");
-System.out.println("Enter 1 to redirect to login page!");
-System.out.println("Enter 2 to exit the application!!");
-System.out.print("Enter your choice: ");
-elsech = reader.nextInt();
-if(elsech == 1)
-{
-cl.cls();
-loginpage();
-}
-else if(elsech == 2)
-{
-cl.cls();
-System.exit(0);
-}
-else
-{
-cl.cls();
-System.out.println("Wrong Choice Entered!!! Exiting the application!");
-System.exit(0);
-}
-}
-}
-else
-{
-System.out.println("Invalid Password!");
+System.out.println("Invalid Email!");
 System.out.println("Enter 1 to redirect to login page!");
 System.out.println("Enter 2 to exit the application!!");
 System.out.print("Enter your choice: ");
@@ -1097,6 +1162,10 @@ ResultSet rs = st.executeQuery(sql);
 while(rs.next())
 {
 flag = 1;
+if(p.equals(rs.getString(2)))
+{
+flag = 2;
+}
 }
 con.close();
 }
@@ -1104,16 +1173,41 @@ catch(Exception e)
 {
 System.out.println(e);
 }
-if (flag == 1)
-{
-if(adminpass.equals("Nishkarsh@123"))
-{
-IFGuard obj = new IFGuard();
-obj.menu(n,p);
-}
+if (flag == 2)
+	{
+	if(adminpass.equals("Nishkarsh@123"))
+	{
+	IFGuard obj = new IFGuard();
+	obj.menu(n,p);
+	}
 else
+	{
+	System.out.println("Wrong Admin Password");
+	System.out.println("Enter 1 to redirect to login page!");
+	System.out.println("Enter 2 to exit the application!!");
+	System.out.print("Enter your choice: ");
+	elsech = reader.nextInt();
+	if(elsech == 1)
+	{
+	cl.cls();
+	loginpage();
+	}
+	else if(elsech == 2)
+	{
+	cl.cls();
+	System.exit(0);
+	}
+	else
+	{
+	cl.cls();
+	System.out.println("Wrong Choice Entered!!! Exiting the application!");
+	System.exit(0);
+	}
+	}
+	}
+else if(flag == 1)
 {
-System.out.println("Wrong Admin Password");
+System.out.println("Invalid Password!");
 System.out.println("Enter 1 to redirect to login page!");
 System.out.println("Enter 2 to exit the application!!");
 System.out.print("Enter your choice: ");
@@ -1135,10 +1229,10 @@ System.out.println("Wrong Choice Entered!!! Exiting the application!");
 System.exit(0);
 }
 }
-}
+
 else
 {
-System.out.println("Invalid Password!");
+System.out.println("Invalid Guard ID!");
 System.out.println("Enter 1 to redirect to login page!");
 System.out.println("Enter 2 to exit the application!!");
 System.out.print("Enter your choice: ");
