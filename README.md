@@ -5,7 +5,7 @@ An Open Source application written in Java with four basic users in Hostel Unive
 **1. Student**
 * Create OutPass Request
 * Check Status of Outpass
-* 
+* Check attendance
 
 **2. Warden**
 * Assign Permission to Outpass
@@ -31,7 +31,7 @@ An Open Source application written in Java with four basic users in Hostel Unive
 
 ## How to Contribute
 
-[Contribution Guidelines](https://github.com/NishkarshRaj/Hostel-Pass-Management-Application/blob/master/CONTRIBUTING.md)
+For contributing, check the guidelines [here](https://github.com/NishkarshRaj/Hostel-Pass-Management-Application/blob/master/CONTRIBUTING.md)
 
 ## Future Scope
 
