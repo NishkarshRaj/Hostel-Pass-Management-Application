@@ -39,7 +39,7 @@ System.out.println("Wrong Choice Entered!!! Exiting the application!");
 }
 }
 
-class Yeo
+class Template
 {
 public static void main(String args[])
 {
